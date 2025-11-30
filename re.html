@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daftar Harga Telur</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fafb;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-image: url('https://cdn.pixabay.com/photo/2023/12/10/15/36/traditional-market-8441660_1280.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      padding: 6rem 2rem 3rem;
+      border-bottom: 4px solid #0ea5e9;
+      color: white;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0,0,0,0.4);
+    }
+    header h1 {
+      position: relative;
+      text-align: center;
+      font-size: 2.8rem;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+      margin: 0;
+      z-index: 1;
+    }
+    nav ul {
+      position: relative;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0;
+      margin-top: 1rem;
+      z-index: 1;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      background-color: rgba(0,0,0,0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+    main {
+      padding: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+      cursor: pointer;
+    }
+    th {
+      background-color: #0ea5e9;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    form {
+      margin-top: 2rem;
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #0ea5e9;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-top: 2rem;
+      padding-bottom: 1rem;
+    }
+    ul.daftar-info {
+      margin-top: 1rem;
+      padding-left: 1.2rem;
+    }
+    #gambarTelur {
+      max-width: 300px;
+      border-radius: 8px;
+      margin-top: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Daftar Harga Telur</h1>
+    <nav>
+      <ul>
+        <li><a href="#tabel">Tabel Harga</a></li>
+        <li><a href="#formulir">Formulir</a></li>
+        <li><a href="#info">Info</a></li>
+        <li><a href="#gambar-dari-tabel">Gambar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="tabel">
+      <table>
+        <thead>
+          <tr>
+            <th>Jenis Telur</th>
+            <th>Wilayah</th>
+            <th>Harga per Kg</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr onclick="tampilkanGambar('ayam-negeri')">
+            <td>Telur Ayam Negeri</td><td>Sidoarjo</td><td>Rp 28.000</td>
+          </tr>
+          <tr onclick="tampilkanGambar('ayam-kampung')">
+            <td>Telur Ayam Kampung</td><td>Surabaya</td><td>Rp 40.000</td>
+          </tr>
+          <tr onclick="tampilkanGambar('bebek')">
+            <td>Telur Bebek</td><td>Gresik</td><td>Rp 35.000</td>
+          </tr>
+          <tr onclick="tampilkanGambar('puyuh')">
+            <td>Telur Puyuh</td><td>Mojokerto</td><td>Rp 30.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="gambar-dari-tabel" style="text-align:center;">
+      <h3>Gambar Telur</h3>
+      <img id="gambarTelur" src="" alt="Gambar Telur" />
+    </section>
+
+    <section id="formulir">
+      <h3>Daftar Pesanan:</h3>
+      <ul id="daftar-pesanan"></ul>
+
+      <form onsubmit="tambahPesanan(event)">
+        <label for="jenis">Jenis Telur Yang Dipesan:</label>
+        <select id="jenis" name="jenis" required>
+          <option value="Telur Ayam Negeri">Telur Ayam Negeri</option>
+          <option value="Telur Ayam Kampung">Telur Ayam Kampung</option>
+          <option value="Telur Bebek">Telur Bebek</option>
+          <option value="Telur Puyuh">Telur Puyuh</option>
+        </select>
+
+        <label for="jumlah">Jumlah (Kg):</label>
+        <input type="number" id="jumlah" name="jumlah" min="1" required />
+
+        <label for="nama">Nama Lengkap:</label>
+        <input type="text" id="nama" name="nama" required />
+
+        <button type="submit">Tambah ke Daftar Pesanan</button>
+      </form>
+    </section>
+
+    <section id="info">
+      <ul class="daftar-info">
+        <li>Harga dapat berubah sewaktu-waktu.</li>
+        <li>Data diambil dari pasar lokal Jawa Timur.</li>
+        <li>Formulir hanya untuk simulasi interaksi pengguna.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Designed by <strong>Muhammad Raihan Nasyid</strong></p>
+  </footer>
+
+  <script>
+  function tampilkanGambar(jenis) {
+    const gambar = document.getElementById("gambarTelur");
+    let url = "";
+
+    if (jenis === "ayam-negeri") {
+      url = "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/112/MTA-170896935/tidak_ada_merk_telur_ayam_negeri_1000g_1_kg_full01_nlra4nsq.jpg";
+    } else if (jenis === "ayam-kampung") {
+      url = "https://image.astronauts.cloud/product-images/2024/9/telurayamkampung_0448496e-8dd6-4d97-8e57-ac06012a00f2_900x900.png";
+    } else if (jenis === "bebek") {
+      url = "https://kubus.id/wp-content/uploads/2024/08/5f09b96e128c1.jpg";
+    } else if (jenis === "puyuh") {
+      url = "https://img-cdn.medkomtek.com/U1MaY3av0EFkLtOiyi_2JuYFmpI=/0x0/smart/filters:quality(100):format(webp)/article/f0-lqHy_SDoX-9s9Zyy-r/original/080977900_1606295742-Manfaat-Telur-Puyuh-untuk-Menu-MPASI-shutterstock_1077493481.jpg";
+    }
+
+    gambar.src = url;
+    gambar.style.display = "block";
+  }
+
+  function tambahPesanan(event) {
+    event.preventDefault();
+    const nama = document.getElementById("nama").value;
+    const jenis = document.getElementById("jenis").value;
+    const jumlah = document.getElementById("jumlah").value;
+
+    const daftar = document.getElementById("daftar-pesanan");
+    const item = document.createElement("li");
+    item.textContent = `${nama} memesan ${jumlah} Kg ${jenis}`;
+    daftar.appendChild(item);
+
+    alert("Pesanan berhasil dipesan!\nTerima kasih, " + nama + ".");
+    event.target.reset();
+  }
+</script>
